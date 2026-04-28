@@ -63,11 +63,13 @@ def linear_regression(learning_rate, nb_iter):
         y_pred = (theta1 * x_values) + theta0
         # print("-" * 50)
         # print("Y_pred:\n", y_pred)
-        plt.plot(x_values, y_pred, color='red', zorder=1)
+        plt.plot(x_values, y_pred, color=(0,1,0,0.5), zorder=2)
         plt.draw()
 
     print("theta0:", theta0)
     print("theta1:", theta1)
+    plt.plot(x_values, y_pred, color='red')
+
     # print("COST:\n", costs)
     # x_values = np.linspace(-2, 3, 100)
     # print("-" * 50)
@@ -77,7 +79,7 @@ def linear_regression(learning_rate, nb_iter):
     # print("Y_pred:\n", y_pred)
     # plt.plot(x_values, y_pred, color='red', zorder=1)
 
-    # plt.scatter(mileage, price, color='b')
+    plt.scatter(x_normalized, price, color='b', zorder=3)
     plt.xlabel("mileage")
     plt.ylabel("price")
     plt.show()
