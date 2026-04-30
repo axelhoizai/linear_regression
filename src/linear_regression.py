@@ -115,6 +115,8 @@ def main():
             file.write(f"theta0:{theta0}\ntheta1:{theta1}")
     except AssertionError as e:
         print(e)
+    except KeyboardInterrupt as e:
+        print("KeyboardInterrupt : Program interruption didn't load <thetas.txt> files")
 
 
 if __name__ == "__main__":

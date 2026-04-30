@@ -2,6 +2,7 @@ from load import load
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
+import os
 
 # TODO: Error management
 def estimatePrice(mileage, theta0=0, theta1=0):
@@ -15,6 +16,8 @@ def estimatePrice(mileage, theta0=0, theta1=0):
 def thetas_tofloat():
     """Convert thetas from str to float"""
     try:
+        if not os.path.exists("thetas.txt"):
+            raise FileNotFoundError("Process linear regression before to get <thetas.txt>")
         file = open("thetas.txt", 'r')
         theta0 = file.readline()
         pos = theta0.find(":")
@@ -34,6 +37,9 @@ def thetas_tofloat():
         print("-" * 50)
 
         return theta0, theta1
+    except FileNotFoundError as e:
+        print("FileNotFoundError :", e)
+        exit()
     except ValueError as e:
         print("ValueError :", e)
         exit()
