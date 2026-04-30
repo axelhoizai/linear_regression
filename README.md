@@ -14,4 +14,4 @@ This project apply a linear regression using a gradient descent to predict the c
 
 ### Dataset
 
-![Linear regression](https://github.com/axelhoizai/linear_regression/tree/main/assets/dataset.png)
+![Dataset](https://github.com/axelhoizai/linear_regression/blob/main/assets/dataset.png)
