@@ -111,7 +111,7 @@ def main():
         print("theta0 :", theta0)
         print("theta1 :", theta1)
 
-        with open("thetas.txt", 'w') as file:
+        with open("/tmp/thetas.txt", 'w') as file:
             file.write(f"theta0:{theta0}\ntheta1:{theta1}")
     except AssertionError as e:
         print(e)
