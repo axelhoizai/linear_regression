@@ -94,20 +94,27 @@ def linear_regression(mileage, price, learning_rate, nb_iter):
     return theta0, theta1
 
 def main():
-    # Get data from file
-    df = load(sys.argv[1])
-    print(df)
-    mileage = np.array(df["km"]).astype(float)
-    price = np.array(df["price"]).astype(float)
+    try:
+        assert len(sys.argv) == 2, "Usage : python3 linear_regression.py <dataset.csv>"
+        # Get data from file
+        df = load(sys.argv[1])
+        print(df)
+        mileage = np.array(df["km"]).astype(float)
+        price = np.array(df["price"]).astype(float)
 
-    theta0, theta1 = linear_regression(mileage, price, 0.1, 100)
+        theta0, theta1 = linear_regression(mileage, price, 0.1, 100)
 
-    # De-normalized thetas
-    theta0 = theta0 - (theta1 * np.mean(mileage / np.std(mileage)))
-    theta1 = theta1 / np.std(mileage)
+        # De-normalized thetas
+        theta0 = theta0 - (theta1 * np.mean(mileage / np.std(mileage)))
+        theta1 = theta1 / np.std(mileage)
+        print("-" * 50)
+        print("theta0 :", theta0)
+        print("theta1 :", theta1)
 
-    with open("thetas.txt", 'w') as file:
-        file.write(f"theta0:{theta0}\ntheta1:{theta1}")
+        with open("thetas.txt", 'w') as file:
+            file.write(f"theta0:{theta0}\ntheta1:{theta1}")
+    except AssertionError as e:
+        print(e)
 
 
 if __name__ == "__main__":
