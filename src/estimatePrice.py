@@ -16,9 +16,9 @@ def estimatePrice(mileage, theta0=0, theta1=0):
 def thetas_tofloat():
     """Convert thetas from str to float"""
     try:
-        if not os.path.exists("thetas.txt"):
+        if not os.path.exists("/tmp/thetas.txt"):
             raise FileNotFoundError("Process linear regression before to get <thetas.txt>")
-        file = open("thetas.txt", 'r')
+        file = open("/tmp/thetas.txt", 'r')
         theta0 = file.readline()
         pos = theta0.find(":")
         theta0 = float(theta0[pos + 1:].strip())
@@ -54,15 +54,16 @@ def plot_datas(mileage, mileages, price, theta0, theta1):
     x = mileage
     y = estimatePrice(mileage, theta0, theta1)
     plt.title("Linear regression")
-    plt.plot(x_values, y_pred, color='red')
-    plt.scatter(x, y, color='g', zorder=3)
+    plt.plot(x_values, y_pred, label="Linear regression", color='red')
+    plt.scatter(mileages, price, label="dataset", color='b')
+    plt.scatter(x, y, label="Prediction", color='g', zorder=3)
     plt.plot([x, x], [0, y], linestyle='--', color=(0, 1, 0, 0.8))
     plt.plot([0, x], [y, y], linestyle='--', color=(0, 1, 0, 0.8))
-    plt.scatter(mileages, price, color='b')
     plt.xlabel("mileage")
     plt.xlim(left=0, right=260000)
     plt.ylim(bottom=0)
     plt.ylabel("Price")
+    plt.legend(loc="lower right")
     plt.show()
 
 def predict_price(theta0, theta1):
@@ -72,18 +73,21 @@ def predict_price(theta0, theta1):
     
     Retrun : mileage: float"""
     try:
-        mileage = float(input("Enter a mileage between 0 and 250 000 : "))
-        assert mileage >= 0 and mileage <= 350000, "Enter mileage between 0 and 350000"
-        
+        mileage = float(input("Enter a mileage between 0 and 400 000 : "))
+        assert mileage >= 0 and mileage <= 400000, "AssertionError : Enter a mileage between 0 and 400 000"
+        estimate_price = estimatePrice(mileage, theta0, theta1)
+        msg_under0 = f"For a mileage of \033[1;32m{mileage:.2f} km\033[0m, the price is under \033[1;31m0 Euro\033[1;0m."
+        assert estimate_price > 0, msg_under0
+
         print(f"For a mileage of \033[1;32m{mileage:.2f} km\033[0m, the price is ", end="")
-        print(f"\033[1;32m{estimatePrice(mileage, theta0, theta1):.2f} Euros\033[1;0m.")
+        print(f"\033[1;32m{estimate_price:.2f} Euros\033[1;0m.")
 
         return mileage
     except ValueError as e:
         print("ValueError :", e)
         exit()
     except AssertionError as e:
-        print("AssertionError :", e)
+        print(e)
         exit()
 
 def main():
@@ -96,7 +100,18 @@ def main():
 
         theta0, theta1 = thetas_tofloat()
 
+        m = len(mileages)
+        MSE = np.sum((price - ((theta1 * mileages) + theta0)) ** 2) / m
+        RMSE = np.sqrt(np.sum((price - ((theta1 * mileages) + theta0)) ** 2) / m)
+        MAE = np.sum(abs((price - ((theta1 * mileages) + theta0))) / m)
+
+        print("MAE  :", MAE)
+        print("MSE  :", MSE)
+        print("RMSE :", RMSE)
+        print("-" * 50)
+
         mileage = predict_price(theta0, theta1)
+        plt.text(10000, 500, f'MAE   : {MAE:.2f}\nMSE   : {MSE:.2f}\nRMSE : {RMSE:.2f}', fontsize='small')
         plot_datas(mileage, mileages, price, theta0, theta1)
     except AssertionError as e:
         print(e)
