@@ -47,7 +47,7 @@ The dataset contains:
 - **Mileage (km)** → Input variable  
 - **Price (€)** → Target variable  
 
-![Dataset](https://github.com/mongithub/linear_regression/blob/main/assets/dataset.png)
+![Dataset](https://github.com/axelhoizai/linear_regression/blob/main/assets/dataset.png)
 
 ---
 
@@ -60,7 +60,7 @@ The dataset contains:
 
 ### 👉 Output
 
-![Linear regression](https://github.com/mongithub/linear_regression/blob/main/assets/linear_regression.png)
+![Linear regression](https://github.com/axelhoizai/linear_regression/blob/main/assets/linear_regression.png)
 
 ---
 
@@ -68,4 +68,4 @@ The dataset contains:
 
 For a mileage of **100000.00 km**, the price is **6354.53 Euros**.
 
-![car price](https://github.com/mongithub/linear_regression/blob/main/assets/prediction100000.png)
+![car price](https://github.com/axelhoizai/linear_regression/blob/main/assets/prediction100000.png)
